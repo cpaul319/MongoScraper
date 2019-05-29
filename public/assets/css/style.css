@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <title>Scraping With Mongoose</title>
-    <style>
+	 
       
       body { 
         background-image: url("https://media.vanityfair.com/photos/5a943a88e6cd8a4072c5d6ee/master/w_768,c_limit/t-NYT-Exterior.jpg");
@@ -43,16 +38,4 @@
         height: 200px;
         font-size: 18px;
       }
-    </style>
-  </head>
-  <body>
-    <div id="wrapper">
-      <h1>Note Scraper</h1>
-      <h2><i>If you can do this...the homework should be no problem.</i></h2>
-      <div id="articles"></div>
-      <div id="notes"></div>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="app.js"></script>
-  </body>
-</html>
+    

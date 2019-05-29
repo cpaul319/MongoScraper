@@ -1,6 +1,7 @@
 var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
+var path = require("path");
 
 // Our scraping tools
 // Axios is a promised-based http library, similar to jQuery's Ajax method
@@ -10,11 +11,34 @@ var cheerio = require("cheerio");
 
 // Require all models
 var db = require("./models");
+var Note = require("./models/Note.js");
+var Article = require("./models/Article.js");
 
 var PORT = 3000;
 
 // Initialize Express
+
 var app = express();
+
+// app.use(express.static("public"));
+//had to use this instead of top one to get the public folder to bee seen
+app.use("/public", express.static(path.join(__dirname, 'public')));
+ 
+
+// Set Handlebars.
+var exphbs = require("express-handlebars");
+
+app.engine("handlebars", exphbs({
+  defaultLayout: "main",
+  layoutsDir: path.join(__dirname, "/views/layouts")
+}));
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "handlebars");
+
+// Import routes and give the server access to them.
+// var routes = require("./controllers/catsController.js");
+
+// app.use(routes);
 
 // Configure middleware
 
@@ -24,12 +48,21 @@ app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Make public a static folder
-app.use(express.static("public"));
+
 
 // Connect to the Mongo DB
 mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
 
 // Routes
+app.get("/", function(req, res) {
+  Article.find({"saved": false}, function(error, data) {
+    var hbsObject = {
+      article: data
+    };
+    console.log(hbsObject);
+    res.render("index", hbsObject);
+  });
+});
 
 // A GET route for scraping the echoJS website
 app.get("/scrape", function(req, res) {
