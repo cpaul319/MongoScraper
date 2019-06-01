@@ -1,25 +1,47 @@
 	 
-      
+      html{
+     
+       
+      }
       body { 
-        background-image: url("https://media.vanityfair.com/photos/5a943a88e6cd8a4072c5d6ee/master/w_768,c_limit/t-NYT-Exterior.jpg");
+        /* background-image: url("https://media.vanityfair.com/photos/5a943a88e6cd8a4072c5d6ee/master/w_768,c_limit/t-NYT-Exterior.jpg");
         background-repeat: no-repeat;
-        background-size: cover;
-        background-color: #F2F6D0 }
+        background-size: cover; */
+        /* background-blend-mode: lighten; */
+        /* background-color: #F2F6D0; */
+        background-color:black;
+        /* opacity: 0.5;  */
+      }
       #wrapper {
-        color: white;
-        background-color: rgba(0,0,0,0.5);
+        color: black;
+        /* background-color: rgba(0,0,0,0.5); */
+        /* background:linear-gradient(blue,black);
+        background-image: linear-gradient(to right, rgba(22, 21, 21, 0.7), rgb(76, 0, 255));  */
+        align-content: center;
+         /* opacity: 0.5;  */
         width: 960px;
         margin-left: auto;
         margin-right: auto;
         padding-top: 5%;
       }
+      .jumbotron{
+        margin-left: -120px;
+        margin-right: -120px;
+        background: rgba(255,255,255,0.5);
+      }
       #articles {
+        z-index: 200;
+        position: relative;
         background: #F2F6D0;
+        /* background:linear-gradient(blue,black);
+        background-image: linear-gradient(to right, rgba(22, 21, 21, 0.7), rgb(76, 0, 255)); */
+        /* opacity: 0.5; */
         display: inline-block;
         overflow: auto;
-        width: 60%;
+        width: 90%;
         height: 700px;
         color: black;
+       opacity: 1;
       }
       #notes {
         float: right;
@@ -37,5 +59,10 @@
       textarea {
         height: 200px;
         font-size: 18px;
+      }
+      nav{
+        background: rgba(255,255,255,0.5);
+        /* background-color: rgba(0,0,0,0.5); */
+       
       }
     
