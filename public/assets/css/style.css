@@ -4,8 +4,8 @@
        
       }
       body { 
-        /* background-image: url("https://media.vanityfair.com/photos/5a943a88e6cd8a4072c5d6ee/master/w_768,c_limit/t-NYT-Exterior.jpg");
-        background-repeat: no-repeat;
+        background-image: url("https://bloximages.newyork1.vip.townnews.com/columbiamissourian.com/content/tncms/custom/image/52f5ee18-5e51-11e6-8488-27596e80e6f0.png");
+        /* background-repeat: no-repeat;
         background-size: cover; */
         /* background-blend-mode: lighten; */
         /* background-color: #F2F6D0; */
@@ -24,24 +24,38 @@
         margin-right: auto;
         padding-top: 5%;
       }
+
+      h3{
+        font-family: "Times New Roman", Times, serif;
+        color: black;
+      }
       .jumbotron{
+        font-family: "Times New Roman", Times, serif;
         margin-left: -120px;
         margin-right: -120px;
-        background: rgba(255,255,255,0.5);
+        background: rgba(255,255,255,0.6);
+        /* color: white; */
       }
-      #articles {
-        z-index: 200;
-        position: relative;
+      .card{
+        /* z-index: 200;
+        position: relative; */
         background: #F2F6D0;
         /* background:linear-gradient(blue,black);
         background-image: linear-gradient(to right, rgba(22, 21, 21, 0.7), rgb(76, 0, 255)); */
         /* opacity: 0.5; */
         display: inline-block;
         overflow: auto;
-        width: 90%;
-        height: 700px;
+        width: 100%;
+        height: auto;
         color: black;
        opacity: 1;
+       margin:5px;
+       border: 10px solid black;
+      }
+      button{
+        float: right;
+        margin:10px;
+        border: 5px solid black;
       }
       #notes {
         float: right;
@@ -60,8 +74,11 @@
         height: 200px;
         font-size: 18px;
       }
+      /* #scrape{
+float: right;
+      } */
       nav{
-        background: rgba(255,255,255,0.5);
+        background: rgba(255,255,255,0.8);
         /* background-color: rgba(0,0,0,0.5); */
        
       }

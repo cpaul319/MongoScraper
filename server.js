@@ -72,15 +72,18 @@ app.get("/scrape", function (req, res) {
     var $ = cheerio.load(response.data);
     // console.log( $("#text").text().trim());
 
-    $("article .card-container .card-body").each(function (i, element) {
+    $("article .card-container .card-body .card-headline").each(function (i, element) {
       // Save an empty result object
       var result = {};
 
       // $(".tnt-headline").text();
-      result.title = $(this).text();
-      result.link = $(this).children().children().children().attr("href");
-      result.imgUrl = $(this).attr("src");
-      result.summary = $(this).children().text();
+      // result.title = $(this).text();
+      result.link = $(this).children().children().attr("href");
+      result.byLine = $(this).children().children().children().children().attr("id");
+      // $('.apple').attr('id', 'favorite').html()
+     
+      // result.imgUrl = $(this).attr("src");
+      result.title = $(this).children().text();
 
 
 
@@ -95,7 +98,7 @@ app.get("/scrape", function (req, res) {
           console.log(err);
         });
     });
-
+    // console.log($(result.link));
     // Send a message to the client
     res.send("Scrape Complete");
   });

@@ -13,16 +13,23 @@ $.getJSON("/articles", function (data) {
   // For each one
   for (var i = 0; i < data.length; i++) {
     // Display the apropos information on the page "<p>" + data[i].title + "</p>"
-    $("#articles").append("<br /><p data-id=" + data[i]._id  + ">"+"</p>" +"<p>"+
-      data[i].title + "</p>" + "<p>" + data[i].summary + "</p>" + "<p>" + data[i].imgUrl + "</p>"
-      + "<a href=" + "https://www.columbiamissourian.com" + data[i].link + " " + "target=" 
-      + "_blank>Click for the full story<br />");
+    $(".jumbotron").append('<div class="card">'
+      + '<div class="card-body">' + '<h5 class="card-title">' + data[i].title + '</h5>' + "<br /><p data-id="
+      + data[i]._id + ">" + "</p>"
+      
+      + "<a href=" + "https://www.columbiamissourian.com" + data[i].link + " " + 'class="btn btn-primary" target='
+      + "_blank>Click for the full story</a><br />" +
+       '<button class="btn btn-primary" data-toggle="modal" id="notesButton" data-id='+
+       + data[i]._id+" " +'data-target="#modalPostForm">Add note</button>'
+        +'<button class="btn btn-primary">Save this article</button>'+ '</div></div>');
+
   }
 });
+ 
 
 
 // Whenever someone clicks a p tag
-$(document).on("click", "p", function () {
+$(document).on("click", "#notesButton", function () {
   // Empty the notes from the note section
   $("#notes").empty();
   // Save the id from the p tag
@@ -55,12 +62,11 @@ $(document).on("click", "p", function () {
     });
 });
 
-// When you click the savenote button
-$(document).on("click", "#savenote", function () {
-  // Grab the id associated with the article from the submit button
-  var thisId = $(this).attr("data-id");
-
-  // Run a POST request to change the note, using what's entered in the inputs
+$('.addNote').on('click', function (e){
+  $('#noteArea').empty();
+  $('#noteTitleEntry, #noteBodyEntry').val('');
+  let id = $(this).data('id');
+  $('#submitNote, #noteBodyEntry').attr('data-id', id);
   $.ajax({
     method: "POST",
     url: "/articles/" + thisId,
@@ -78,8 +84,6 @@ $(document).on("click", "#savenote", function () {
       // Empty the notes section
       $("#notes").empty();
     });
-
-  // Also, remove the values entered in the input and textarea for note entry
-  $("#titleinput").val("");
-  $("#bodyinput").val("");
 });
+// When you click the savenote button
+ 
