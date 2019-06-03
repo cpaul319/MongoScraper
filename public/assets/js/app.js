@@ -13,27 +13,41 @@ $.getJSON("/articles", function (data) {
   // For each one
   for (var i = 0; i < data.length; i++) {
     // Display the apropos information on the page "<p>" + data[i].title + "</p>"
-    $(".jumbotron").append('<div class="card">'
-      + '<div class="card-body">' + '<h5 class="card-title">' + data[i].title + '</h5>' + "<br /><p data-id="
-      + data[i]._id + ">" + "</p>"
+    $(".jumbotron").append(
+      '<div class="card">'
+      + '<div class="card-body">' 
+      + '<h5 class="card-title">' 
+      + data[i].title 
+      + '</h5>' 
       
-      + "<a href=" + "https://www.columbiamissourian.com" + data[i].link + " " + 'class="btn btn-primary" target='
-      + "_blank>Click for the full story</a><br />" +
-       '<button class="btn btn-primary" data-toggle="modal" id="notesButton" data-id='+
-       + data[i]._id+" " +'data-target="#modalPostForm">Add note</button>'
-        +'<button class="btn btn-primary">Save this article</button>'+ '</div></div>');
+      + "<a href="
+      + "https://www.columbiamissourian.com"
+      + data[i].link
+      + " "
+      + 'class="btn btn-primary"'+ 'target="_blank">Click for the full story</a><br />'
+      +'<button data-id=' 
+      + data[i]._id 
+      + " " 
+      +'class="btn btn-primary" data-toggle="modal" id="notesButton"'
+      +'data-target="#modalPostForm"'
+      + 'data-title='
+      + data[i].title 
+      +'>Add note</button>'
+      +'<button class="btn btn-primary">Save this article</button>'
+      + '</div></div>');
 
   }
 });
  
-
+//data-title=' + data[i].title +"
 
 // Whenever someone clicks a p tag
-$(document).on("click", "#notesButton", function () {
+$(document).on("click", "#modalPostForm", function () {
   // Empty the notes from the note section
   $("#notes").empty();
   // Save the id from the p tag
   var thisId = $(this).attr("data-id");
+  var title = $(this).attr("data-title");
 
   // Now make an ajax call for the Article
   $.ajax({
@@ -62,7 +76,7 @@ $(document).on("click", "#notesButton", function () {
     });
 });
 
-$('.addNote').on('click', function (e){
+$('.saveNote').on('click', function (e){
   $('#noteArea').empty();
   $('#noteTitleEntry, #noteBodyEntry').val('');
   let id = $(this).data('id');
