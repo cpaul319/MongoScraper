@@ -17,8 +17,6 @@ var Article = require("./models/Article.js");
  
 var PORT = process.env.PORT || 3000
 
-// Initialize Express
-
 var app = express();
 
 // app.use(express.static("public"));
