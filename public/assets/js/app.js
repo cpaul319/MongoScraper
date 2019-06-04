@@ -94,35 +94,35 @@ $(".saveNote").on("click", function() {
             // Log the response
             console.log(data);
             // Empty the notes section
-            // $("#noteText" + thisId).val("");
-            // $(".modalNote").modal("hide");
+            $("#noteText" + thisId).val("");
+            $(".modalNote").modal("hide");
             window.location = "/"
         });
   }
 });
 
-$('.saveNote').on('click', function (e){
-  // $('#noteArea').empty();
-  // $('#noteTitleEntry, #noteBodyEntry').val('');
-  let id = $(this).data('id');
-  $('#submitNote, #noteBodyEntry').attr('data-id', id);
-  $.ajax({
-    method: "POST",
-    url: "/articles/" + thisId,
-    data: {
-      // Value taken from title input
-      title: $("#titleinput").val(),
-      // Value taken from note textarea
-      body: $("#bodyinput").val()
-    }
-  })
-    // With that done
-    .then(function (data) {
-      // Log the response
-      console.log(data);
-      // Empty the notes section
-      $("#notes").empty();
-    });
-});
+// $('.saveNote').on('click', function (e){
+//   // $('#noteArea').empty();
+//   // $('#noteTitleEntry, #noteBodyEntry').val('');
+//   let id = $(this).data('id');
+//   $('#submitNote, #noteBodyEntry').attr('data-id', id);
+//   $.ajax({
+//     method: "POST",
+//     url: "/articles/" + thisId,
+//     data: {
+//       // Value taken from title input
+//       title: $("#titleinput").val(),
+//       // Value taken from note textarea
+//       body: $("#bodyinput").val()
+//     }
+//   })
+//     // With that done
+//     .then(function (data) {
+//       // Log the response
+//       console.log(data);
+//       // Empty the notes section
+//       $("#notes").empty();
+//     });
+// });
 // When you click the savenote button
  

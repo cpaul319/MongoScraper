@@ -53,6 +53,21 @@ app.use(express.json());
 // Connect to the Mongo DB
 mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
 
+// Database configuration with mongoose
+mongoose.connect("mongodb://heroku_jmv816f9:5j1nd4taq42hi29bfm5hobeujd@ds133192.mlab.com:33192/heroku_jmv816f9");
+ 
+var db = mongoose.connection;
+
+// Show any mongoose errors
+db.on("error", function(error) {
+  console.log("Mongoose Error: ", error);
+});
+
+// Once logged in to the db through mongoose, log a success message
+db.once("open", function() {
+  console.log("Mongoose connection successful.");
+});
+
 // Routes
 app.get("/", function (req, res) {
   Article.find({ "saved":false}, function (error, data) {
