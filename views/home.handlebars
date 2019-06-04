@@ -1,43 +1,40 @@
-<!--Saved Articles Page-->
-
+<!--Homepage-->
 <div class="container">
-
     <div class="col-md-12 jumbotron">
         <div class="text-center">
-            <h1> Saved Articles</h1>
+            <h1> Scraped Articles</h1>
         </div>
+
 
         <div class="col-md-12">
             {{#if article}}
             {{#each article}}
             <div class="card">
-                <div class="title">
+                <div class="panel-heading">
                     <h4>{{this.title}}</h4>
                 </div>
                 <div class="panel-body">
-                    <p> {{this.summary}}</p>
-                    <a href={{this.link}} target="_blank"><button type="button" class="btn btn-primary">Click for full Story</button></a>
-                    
-                    
+                    <a href={{this.link}} target="_blank"><button type="button" class="btn btn-primary">Click for full
+                            Story</button></a>
                     <br><br>
-                    <button type="button" class="btn btn-primary addNote" data-toggle="modal"
-                        data-target="#noteModal" data-id={{this._id}}>View/Add Notes</button>
-                    <button type="button" class="btn btn-primary delete" data-id={{this._id}}>Delete</button>
+                    <button type="button" class="btn btn-primary save" data-id={{this._id}}>Save Article</button>
+
+                    <button type="button" class="btn btn-primary addNote" data-toggle="modal" data-target="#noteModal"
+                        data-id={{this._id}}>Add Note</button>
                 </div>
             </div>
             {{/each}}
             {{else}}
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h4>You have no saved articles.</h4>
+                    <h4>There are no scraped articles yet. Hit the scrape articles button to begin</h4>
                 </div>
             </div>
             {{/if}}
+
         </div>
     </div>
 </div>
-
-<!--Clicked Notes Modal-->
 <div class="notesModal">
     {{#each article}}
     {{> modal_notes }}

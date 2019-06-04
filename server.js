@@ -55,12 +55,12 @@ mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true 
 
 // Routes
 app.get("/", function (req, res) {
-  Article.find({ "saved": false }, function (error, data) {
+  Article.find({ "saved":false}, function (error, data) {
     var hbsObject = {
       article: data
     };
     console.log(hbsObject);
-    res.render("index", hbsObject);
+    res.render("home", hbsObject);
   });
 });
 
@@ -78,7 +78,7 @@ app.get("/scrape", function (req, res) {
 
       // $(".tnt-headline").text();
       // result.title = $(this).text();
-      result.link = $(this).children().children().attr("href");
+      result.link =("https://www.columbiamissourian.com/")+$(this).children().children().attr("href");
       result.byLine = $(this).children().children().children().children().attr("id");
       // $('.apple').attr('id', 'favorite').html()
      
@@ -109,13 +109,41 @@ app.get("/articles", function (req, res) {
   // Grab every document in the Articles collection
   db.Article.find({})
     .then(function (dbArticle) {
+      var hbsObject = {
+        article: dbArticle
+      };
       // If we were able to successfully find Articles, send them back to the client
-      res.json(dbArticle);
+      res.json(hbsObject);
+      // res.render("index", hbsObject);
     })
     .catch(function (err) {
       // If an error occurred, send it to the client
       res.json(err);
     });
+});
+// Save an article
+app.post("/articles/save/:id", function(req, res) {
+  // Use the article id to find and update its saved boolean
+  Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": true})
+  // Execute the above query
+  .exec(function(err, doc) {
+    // Log any errors
+    if (err) {
+      console.log(err);
+    }
+    else {
+      // Or send the document to the browser
+      res.send(doc);
+    }
+  });
+});
+app.get("/saved", function(req, res) {
+  Article.find({"saved": true}).populate("notes").exec(function(error, articles) {
+    var hbsObject = {
+      article: articles
+    };
+    res.render("saved", hbsObject);
+  });
 });
 
 // Route for grabbing a specific Article by id, populate it with it's note
@@ -152,6 +180,65 @@ app.post("/articles/:id", function (req, res) {
       // If an error occurred, send it to the client
       res.json(err);
     });
+});
+app.post("/notes/save/:id", function(req, res) {
+  // Create a new note and pass the req.body to the entry
+  var newNote = new Note({
+    body: req.body.text,
+    article: req.params.id
+  });
+  console.log(req.body)
+  // And save the new note the db
+  newNote.save(function(error, note) {
+    // Log any errors
+    if (error) {
+      console.log(error);
+    }
+    // Otherwise
+    else {
+      // Use the article id to find and update it's notes
+      Article.findOneAndUpdate({ "_id": req.params.id }, {$push: { "notes": note } })
+      // Execute the above query
+      .exec(function(err) {
+        // Log any errors
+        if (err) {
+          console.log(err);
+          res.send(err);
+        }
+        else {
+          // Or send the note to the browser
+          // res.json(dbNote);
+          res.send(note);
+          // console.log("Note log"+note);
+        }
+      });
+    }
+  });
+});
+app.delete("/notes/delete/:note_id/:article_id", function(req, res) {
+  // Use the note id to find and delete it
+  Note.findOneAndRemove({ "_id": req.params.note_id }, function(err) {
+    // Log any errors
+    if (err) {
+      console.log(err);
+      res.send(err);
+    }
+    else {
+      Article.findOneAndUpdate({ "_id": req.params.article_id }, {$pull: {"notes": req.params.note_id}})
+       // Execute the above query
+        .exec(function(err) {
+          // Log any errors
+          if (err) {
+            console.log(err);
+            res.send(err);
+          }
+          else {
+            // Or send the note to the browser
+            res.send("Note Deleted");
+          }
+        });
+    }
+  });
 });
 
 // Start the server

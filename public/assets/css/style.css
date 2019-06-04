@@ -24,6 +24,9 @@
         margin-right: auto;
         padding-top: 5%;
       }
+      a{
+        color: white;
+      }
 
       h3{
         font-family: "Times New Roman", Times, serif;
@@ -31,8 +34,9 @@
       }
       .jumbotron{
         font-family: "Times New Roman", Times, serif;
-        margin-left: -120px;
-        margin-right: -120px;
+        margin-top: 30px;
+        /* margin-left: -120px;
+        margin-right: -120px; */
         background: rgba(255,255,255,0.6);
         /* color: white; */
       }
