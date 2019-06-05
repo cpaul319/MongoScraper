@@ -55,7 +55,7 @@ app.get("/scrape", function (req, res) {
   
       var result = {};
       result.link =("https://www.columbiamissourian.com/")+$(this).children().children().attr("href");
-      result.byLine = $(this).children().children().children().children().attr("id");
+     
       result.title = $(this).children().text();
 
       db.Article.create(result)
@@ -113,17 +113,6 @@ app.get("/saved", function(req, res) {
     res.render("saved", hbsObject);
   });
 });
-
-app.get("/", function(req, res) {
-  Article.find({"saved": false}).populate("notes").exec(function(error, articles) {
-    var hbsObject = {
-      article: articles
-    };
-    res.render("/", hbsObject);
-  });
-});
-
-
 
 app.post("/articles/:id", function (req, res) {
   db.Note.create(req.body)
