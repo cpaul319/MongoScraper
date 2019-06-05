@@ -56,6 +56,10 @@
        margin:5px;
        border: 10px solid black;
       }
+      .modal-content{
+        
+       border: 10px solid black;
+      }
       button{
         float: right;
         margin:10px;

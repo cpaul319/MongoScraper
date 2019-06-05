@@ -1,6 +1,7 @@
 var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
+var bodyParser = require("body-parser");
 var path = require("path");
 var axios = require("axios");
 var cheerio = require("cheerio");
@@ -27,6 +28,9 @@ app.set("view engine", "handlebars");
 app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 var MONGODB_URI = process.env.MONGODB_URI ||"mongodb://localhost/mongoHeadlines";
 mongoose.connect(MONGODB_URI);
@@ -90,17 +94,6 @@ app.post("/articles/save/:id", function(req, res) {
     }
   });
 });
-
-
-app.get("/saved", function(req, res) {
-  Article.find({"saved": true}).populate("notes").exec(function(error, articles) {
-    var hbsObject = {
-      article: articles
-    };
-    res.render("saved", hbsObject);
-  });
-});
-
 app.get("/articles/:id", function (req, res) {
   db.Article.findOne({ _id: req.params.id })
     .populate("note")
@@ -111,6 +104,26 @@ app.get("/articles/:id", function (req, res) {
       res.json(err);
     });
 });
+
+app.get("/saved", function(req, res) {
+  Article.find({"saved": true}).populate("notes").exec(function(error, articles) {
+    var hbsObject = {
+      article: articles
+    };
+    res.render("saved", hbsObject);
+  });
+});
+
+app.get("/", function(req, res) {
+  Article.find({"saved": false}).populate("notes").exec(function(error, articles) {
+    var hbsObject = {
+      article: articles
+    };
+    res.render("/", hbsObject);
+  });
+});
+
+
 
 app.post("/articles/:id", function (req, res) {
   db.Note.create(req.body)

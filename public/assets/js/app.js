@@ -31,14 +31,14 @@ $(".delete").on("click", function() {
  
 $(".saveNote").on("click", function() {
   var thisId = $(this).attr("data-id");
-  if (!$("#noteText").val()) {
+  if (!$("#noteText" + thisId).val()) {
       alert("please enter a note to save")
   }else {
     $.ajax({
           method: "POST",
           url: "/notes/save/" + thisId,
           data: {
-            text: $("#noteText").val()
+            text: $("#noteText" +thisId).val()
           }
         }).done(function(data) {
             // Log the response

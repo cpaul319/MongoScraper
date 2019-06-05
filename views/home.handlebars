@@ -19,7 +19,7 @@
                     <br><br>
                     <button type="button" class="btn btn-primary save" data-id={{this._id}}>Save Article</button>
 
-                    <button type="button" class="btn btn-primary addNote" data-toggle="modal" data-target="#noteModal"
+                    <button type="button" class="btn btn-primary addNote" data-toggle="modal"  data-target="#noteModal{{this._id}}"
                         data-id={{this._id}}>View/Add Notes</button>
                 </div>
             </div>
@@ -35,8 +35,8 @@
         </div>
     </div>
 </div>
-<div class="notesModal">
+ 
     {{#each article}}
     {{> modal_notes }}
     {{/each}}
-</div>
+ 
