@@ -78,6 +78,10 @@
         height: 200px;
         font-size: 18px;
       }
+      .previousNotes{
+        word-wrap: break-word;
+        width: 100%;
+      }
       /* #scrape{
 float: right;
       } */

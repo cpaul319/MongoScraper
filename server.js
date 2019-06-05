@@ -125,6 +125,19 @@ app.post("/articles/:id", function (req, res) {
     });
 });
 
+app.get("/articles/:id", function(req, res) {
+  Article.findOne({ "_id": req.params.id })
+  .populate("note")
+  .exec(function(error, doc) {
+    if (error) {
+      console.log(error);
+    }
+    else {
+      res.json(doc);
+    }
+  });
+});
+
 app.post("/notes/save/:id", function(req, res) {
   var newNote = new Note({
     body: req.body.text,
@@ -149,6 +162,8 @@ app.post("/notes/save/:id", function(req, res) {
     }
   });
 });
+
+
 app.post("/articles/delete/:id", function(req, res) {
   Article.findOneAndUpdate({ "_id": req.params.id }, {"saved": false, "notes": []})
   .exec(function(err, doc) {
